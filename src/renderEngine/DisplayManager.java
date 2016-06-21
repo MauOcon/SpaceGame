@@ -13,7 +13,7 @@ import org.lwjgl.opengl.PixelFormat;
  * @author mau
  *
  */
-public class DisplayManager {
+public class DisplayManager { 
 	
 	/**
 	 * Variables that determine the size and fps of the display to create
