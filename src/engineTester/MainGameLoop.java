@@ -13,8 +13,7 @@ public class MainGameLoop {
 		
 		DisplayManager.createDisplay();
 		
-		Loader loader = new Loader();
-		
+		Loader loader = new Loader();		
 		Renderer renderer = new Renderer();
 		
 		// OpenGL expects vertices to be defined counter clockwise by default

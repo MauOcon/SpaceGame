@@ -8,9 +8,18 @@ package renderEngine;
  */
 public class RawModel {
 	
-	private int vaoID;
-	private int vertexCount;
+	/**
+	 * There are two things we need to know about a model when
+	 * it's stored in memmory
+	 */
+	private int vaoID;			// Its ID of the model
+	private int vertexCount;	// How many vertices are in the model
 	
+	/**
+	 * 
+	 * @param vaoID
+	 * @param vertexCount
+	 */
 	public RawModel(int vaoID, int vertexCount){
 		this.vaoID = vaoID;
 		this.vertexCount = vertexCount;
