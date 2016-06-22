@@ -1,0 +1,13 @@
+#version 330 core
+
+// Inputs to the fragment shader
+in vec3 color;
+
+// Outputs of the fragment shader
+out vec4 out_Color;
+
+void main(void){
+
+	out_Color = vec4(color, 1.0);
+
+}

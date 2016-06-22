@@ -6,6 +6,7 @@ import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.RawModel;
 import renderEngine.Renderer;
+import shaders.StaticShader;
 
 public class MainGameLoop {
 	
@@ -16,7 +17,9 @@ public class MainGameLoop {
 		
 		/********************* Defines the model ************************/		
 		Loader loader = new Loader();		
-		Renderer renderer = new Renderer();		
+		Renderer renderer = new Renderer();	
+		
+		StaticShader shader = new StaticShader();
 		
 		// Vertices of the model
 		float[] vertices = {
@@ -42,13 +45,16 @@ public class MainGameLoop {
 						
 			
 			// render	
+			shader.start();
 			renderer.render(model);
+			shader.stop();
 			
 			// Update the display
 			DisplayManager.updateDisplay();
 			
 		}
 		
+		shader.cleanUp();
 		loader.cleanUP();
 		DisplayManager.closeDisplay();
 	}

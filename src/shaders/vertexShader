@@ -1,0 +1,16 @@
+#version 330 core
+
+// Inputs to the vertex shader
+in vec3 position;
+
+// Outputs of the vertex shader
+out vec3 color;
+
+void main(void){
+
+	// Tell to OpenGL where to render this vertex on the screen
+	gl_Position = vec4(position, 1.0);
+	// Create an output color
+	color = vec3(position.x + 0.5, 1.0, position.y+0.5);
+
+}
