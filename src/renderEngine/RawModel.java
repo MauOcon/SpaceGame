@@ -1,24 +1,18 @@
 package renderEngine;
 
 /**
- * Represents a 3D model stored in memory
+ * Represents a 3D model stored in memory by a
+ * vaoID and its number of vertices
  * 
  * @author mau
  *
  */
 public class RawModel {
 	
-	/**
-	 * There are two things we need to know about a model when
-	 * it's stored in memmory
-	 */
 	private int vaoID;			// Its ID of the model
 	private int vertexCount;	// How many vertices are in the model
 	
 	/**
-	 * 
-	 * @param vaoID
-	 * @param vertexCount
 	 */
 	public RawModel(int vaoID, int vertexCount){
 		this.vaoID = vaoID;

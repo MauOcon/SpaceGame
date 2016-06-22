@@ -32,7 +32,7 @@ public class Renderer {
 		// Activate the attribute list in which our data is stored
 		GL20.glEnableVertexAttribArray(0);
 		// Render the model
-		GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.getVertexCount());
+		GL11.glDrawElements(GL11.GL_TRIANGLES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
 		
 		GL20.glDisableVertexAttribArray(0);
 		GL30.glBindVertexArray(0);
