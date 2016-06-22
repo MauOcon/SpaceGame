@@ -1,5 +1,8 @@
 package renderEngine;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -10,12 +13,16 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+
+import models.RawModel;
 
 /**
  * 
  * This class is going to deal with loading 3D models
  * into memory by storing positional data about the model 
- * in a VAO
+ * and the texture coors into the  VAO 
  * 
  * @author mau
  *
@@ -25,12 +32,13 @@ public class Loader {
 	
 	/**
 	 * Memmory Management. At the end  when we close down the game
-	 * we are going to delete all the VBO and VAO created.
+	 * we are going to delete all the VBO, VAO and textures loaded.
 	 * With this we can keep track of them 
 	 * 
 	 */
 	private List<Integer> vaos = new ArrayList<>();
 	private List<Integer> vbos = new ArrayList<>();
+	private List<Integer> textures = new ArrayList<>();
 	
 	/**
 	 * Take in positions of the model's vertices and the indices and loads 
@@ -42,17 +50,21 @@ public class Loader {
 	 * the ID of the VAO and the number of vertices and return the Raw Model
 	 * 
 	 * @param positions	Float array of positions of the vertex of the model
+	 * @param textureCoords Float array of positions of the texture in the model
 	 * @param indices	Index buffer array
 	 * @return Raw model object
 	 */
-	public RawModel loadToVAO(float[] positions, int[] indices){
+	public RawModel loadToVAO(float[] positions, float[] textureCoords,  int[] indices){
 		// Create an empty VAO, bind it and store it's ID
 		int vaoID = createVAO();
 		// Bind the Indices Buffer to the VAO
 		bindIndicesBuffer(indices);
 		// Store the positional data into one of the attribute lists
 		// of the VAO
-		storeDataInAttributeList(0, positions);
+		storeDataInAttributeList(0, 3, positions);
+		// Store the texture coordinates data into one of the 
+		//attribute lists of the VAO
+		storeDataInAttributeList(1, 2, textureCoords);
 		//  When we finish using it we VAO we unbind it
 		unbindVAO();		
 		// We create a new RawModel
@@ -61,8 +73,29 @@ public class Loader {
 	}
 	
 	/**
+	 * Loads up a texture into OpenGL
+	 * 
+	 * @param filename	Filename of the texture
+	 * @return	ID of the texture
+	 */
+	public int loadTexture(String fileName){
+		Texture texture = null;
+		try {
+			texture = TextureLoader.getTexture("PNG", new FileInputStream("res/" + fileName + ".png"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		int textureID = texture.getTextureID();
+		textures.add(textureID);
+		
+		return textureID;
+	}
+	
+	/**
 	 * When we close down the game we can call this method that deletes
-	 * all of the VBOs and VAOs in the lists
+	 * all of the VBOs, VAOs ant textures in the lists
 	 *  
 	 */
 	public void cleanUP(){
@@ -71,6 +104,9 @@ public class Loader {
 		}
 		for(int vbo:vbos){
 			GL15.glDeleteBuffers(vbo);
+		}
+		for(int texture:textures){
+			GL11.glDeleteTextures(texture);
 		}
 	}
 	
@@ -95,9 +131,10 @@ public class Loader {
 	 * as a VBO
 	 * 
 	 * @param attributeNumber in which we want to store the data
+	 * @param coordinateSize How big each coordinate is
 	 * @param Array of data
 	 */
-	private void storeDataInAttributeList(int attributeNumber, float[] data){
+	private void storeDataInAttributeList(int attributeNumber, int coordinateSize, float[] data){
 		// We create an empty VBO
 		int vboID = GL15.glGenBuffers();
 		// Create track of the VBO to delete it later
@@ -111,7 +148,7 @@ public class Loader {
 		// Type of VBO, data, what the data is going to be used for static or is going to be edited
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
 		/* Put that VBO into the VAO */
-		GL20.glVertexAttribPointer(attributeNumber, 3, GL11.GL_FLOAT, false, 0, 0);
+		GL20.glVertexAttribPointer(attributeNumber, coordinateSize, GL11.GL_FLOAT, false, 0, 0);
 		/* 0: we unBind the current VBO*/
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 		

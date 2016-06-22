@@ -1,13 +1,16 @@
 #version 330 core
 
 // Inputs to the fragment shader
-in vec3 color;
+in vec2 pass_textureCoords;
 
 // Outputs of the fragment shader
 out vec4 out_Color;
 
-void main(void){
+uniform sampler2D textureSampler;	// Represents the texture
 
-	out_Color = vec4(color, 1.0);
+void main(void){
+	
+	// Returns the color of the pixel on the texture ato the coordinates 
+	out_Color = texture(textureSampler, pass_textureCoords);
 
 }

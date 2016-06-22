@@ -2,15 +2,16 @@
 
 // Inputs to the vertex shader
 in vec3 position;
+in vec2 textureCoords;
 
 // Outputs of the vertex shader
-out vec3 color;
+out vec2 pass_textureCoords;
 
 void main(void){
 
 	// Tell to OpenGL where to render this vertex on the screen
 	gl_Position = vec4(position, 1.0);
 	// Create an output color
-	color = vec3(position.x + 0.5, 1.0, position.y+0.5);
+	pass_textureCoords = textureCoords;
 
 }
