@@ -7,10 +7,17 @@ in vec2 textureCoords;
 // Outputs of the vertex shader
 out vec2 pass_textureCoords;
 
+// Uniform variables
+uniform mat4 transformationMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
+
 void main(void){
 
-	// Tell to OpenGL where to render this vertex on the screen
-	gl_Position = vec4(position, 1.0);
+	
+	//Tells to OpenGL where to render this vertex on the screen
+	
+	gl_Position = projectionMatrix * viewMatrix * transformationMatrix * vec4(position, 1.0);
 	// Create an output color
 	pass_textureCoords = textureCoords;
 
