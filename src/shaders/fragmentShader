@@ -9,7 +9,7 @@ in vec3 toCameraVector;
 // Outputs of the fragment shader
 out vec4 out_Color;
 
-uniform sampler2D textureSampler;	// Represents the texture
+uniform sampler2D modelTexture;	// Represents the texture
 uniform vec3 lightColor;
 uniform float shineDamper;
 uniform float reflectivity;
@@ -35,7 +35,14 @@ void main(void){
 	
 	vec3 finalSpecular = dampedFactor * reflectivity * lightColor;
 	
+	vec4 textureColor = texture(modelTexture, pass_textureCoords);
+	
+	if(textureColor.a < 0.5){
+		discard;
+	}
+		
+	
 	// Returns the color of the pixel on the texture at the coordinates 
-	out_Color = vec4 (diffuse, 1.0) * texture(textureSampler, pass_textureCoords) + vec4(finalSpecular,1.0);
+	out_Color = vec4 (diffuse, 1.0) * textureColor + vec4(finalSpecular,1.0);
 
 }
