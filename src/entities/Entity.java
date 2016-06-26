@@ -7,7 +7,7 @@ import models.TexturedModel;
 /**
  * Instance of a textured model, so it will contain a textured model
  * and also has a position, rotation and scale so one can render multiple
- * entities all using the same model
+ * entities all using the same textured model
  * 
  * @author mau
  *

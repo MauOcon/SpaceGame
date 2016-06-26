@@ -3,6 +3,12 @@ package entities;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
+/**
+ * Represents a virtual camera's position and orientation
+ * 
+ * @author mau
+ *
+ */
 public class Camera {
 	
 	private Vector3f position = new Vector3f(0,0,0);
@@ -13,6 +19,9 @@ public class Camera {
 	
 	public Camera(){}
 	
+	/**
+	 * Moves the camera
+	 */
 	public void move(){
 		
 		float paso = 0.1f;

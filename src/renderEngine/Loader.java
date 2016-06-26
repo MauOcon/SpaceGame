@@ -22,7 +22,7 @@ import models.RawModel;
  * 
  * This class is going to deal with loading 3D models
  * into memory by storing positional data about the model 
- * and the texture coors into the  VAO 
+ * and the texture coords into the  VAO 
  * 
  * @author mau
  *
@@ -166,7 +166,7 @@ public class Loader {
 	
 	/**
 	 * 
-	 * Load up the indices buffer and bind it to a vao
+	 * Load up the indices buffer and bind it
 	 * 
 	 * @param indices
 	 */
@@ -178,7 +178,8 @@ public class Loader {
 		IntBuffer buffer = storeDataInIntBuffer(indices);
 		// Store indices into the VBO
 		GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
-		
+		// Unbind indices buffer
+		//GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
 	/**

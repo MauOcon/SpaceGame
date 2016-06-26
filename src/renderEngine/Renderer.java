@@ -14,7 +14,7 @@ import shaders.StaticShader;
 import toolbox.Maths;
 
 /**
- * Renders the TexturedModel from the VAO
+ * Renders an entity
  * 
  * @author mau
  *
@@ -27,6 +27,12 @@ public class Renderer {
 	
 	private Matrix4f projectionMatrix;
 	
+	/**
+	 * Constructor for the renderer class that creates the projection matrix and 
+	 * loads the projection matrix to the shader
+	 * 
+	 * @param shader
+	 */
 	public Renderer(StaticShader shader){
 		createProjectionMatrix();
 		shader.start();
@@ -56,7 +62,7 @@ public class Renderer {
 		GL30.glBindVertexArray(rawModel.getVaoID());
 		// Activate the attribute list in which our data is stored
 		GL20.glEnableVertexAttribArray(0);
-		GL20.glEnableVertexAttribArray(1);
+		GL20.glEnableVertexAttribArray(1);		
 		// We create a transformation matrix from the entity
 		Matrix4f transformationMatrix = Maths.createTransformationMatrix(
 				entity.getPosition(), 
@@ -75,6 +81,9 @@ public class Renderer {
 		GL30.glBindVertexArray(0);
 	}
 	
+	/**
+	 * Creates the projection matrix
+	 */
 	private void createProjectionMatrix(){
 		float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
         float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);

@@ -26,6 +26,7 @@ public abstract class ShaderProgram {
 	private int vertexShaderID;
 	private int fragmentShaderID;
 	
+	// to load a matrix into a uniform variable
 	private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 	
 	public ShaderProgram(String vertexFile, String fragmentFile){
