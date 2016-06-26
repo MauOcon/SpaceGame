@@ -54,7 +54,7 @@ public class Loader {
 	 * @param indices	Index buffer array
 	 * @return Raw model object
 	 */
-	public RawModel loadToVAO(float[] positions, float[] textureCoords,  int[] indices){
+	public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals,  int[] indices){
 		// Create an empty VAO, bind it and store it's ID
 		int vaoID = createVAO();
 		// Bind the Indices Buffer to the VAO
@@ -65,6 +65,7 @@ public class Loader {
 		// Store the texture coordinates data into one of the 
 		//attribute lists of the VAO
 		storeDataInAttributeList(1, 2, textureCoords);
+		storeDataInAttributeList(2, 3, normals);
 		//  When we finish using it we VAO we unbind it
 		unbindVAO();		
 		// We create a new RawModel
