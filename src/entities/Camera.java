@@ -30,6 +30,7 @@ public class Camera {
 	 */
 	public void move(){
 		
+				/*
 		float paso = 0.2f;
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)){
@@ -50,19 +51,19 @@ public class Camera {
 		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
 			position.y -= paso;
 		}
-		/*if(Keyboard.isKeyDown(Keyboard.KEY_E)){
+		if(Keyboard.isKeyDown(Keyboard.KEY_E)){
 			roll -= paso;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_Q)){
 			roll += paso;
-		}*/
+		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
 			yaw -= 2*paso;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
 			yaw += 2*paso;
-		}
+		}*/
 	}
 	
 	

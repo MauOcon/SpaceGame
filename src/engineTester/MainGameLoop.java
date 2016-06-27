@@ -11,6 +11,7 @@ import org.lwjgl.util.vector.Vector3f;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
+import entities.Player;
 import models.RawModel;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
@@ -35,6 +36,8 @@ public class MainGameLoop {
 		ModelData treeData = OBJFileLoader.loadOBJ("tree"); 	
 		ModelData grassModelData = OBJFileLoader.loadOBJ("grassModel"); 
 		ModelData fernData = OBJFileLoader.loadOBJ("fern"); 
+		ModelData bunnyData = OBJFileLoader.loadOBJ("stanfordBunny"); 
+		//ModelData bunnyData = OBJFileLoader.loadOBJ("bunny"); 
 		RawModel tree = loader.loadToVAO(treeData.getVertices(),
 				treeData.getTextureCoords(),
 				treeData.getNormals(), 
@@ -59,6 +62,14 @@ public class MainGameLoop {
 				fernData.getNormals(), 
 				fernData.getIndices()),
 				new ModelTexture(loader.loadTexture("fern"))); 
+		
+		TexturedModel bunny = new TexturedModel(loader.loadToVAO(
+				bunnyData.getVertices(), 
+				bunnyData.getTextureCoords(), 
+				bunnyData.getNormals(), 
+				bunnyData.getIndices()),
+				new ModelTexture(loader.loadTexture("white"))); 
+		
 		/*TexturedModel fern = new TexturedModel(OBJLoader.loadObjModel("fern", loader),
 				new ModelTexture(loader.loadTexture("fern")));*/
 		fern.getTexture().setHasTransparency(true);
@@ -91,17 +102,22 @@ public class MainGameLoop {
 		Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap);
 		Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap);
 		
-		Camera camera = new Camera( new Vector3f(0, 1, 0));
+		Camera camera = new Camera( new Vector3f(0, 10, 20));
+		
+		Player player  = new Player(bunny, new Vector3f(1, 0, -1), 0, 0, 0, 1);
 		
 		
 		/*************************************************************************/
+		
 		
 		MasterRenderer renderer = new MasterRenderer();
 		while(!Display.isCloseRequested()){
 			//entity.increaseRotation(0, 1, 0);
 			camera.move();
+			player.move();
 			//entity.increaseRotation(0, 1, 0 );
 			// Game Logic
+			renderer.processEntity(player);
 			renderer.processTerrain(terrain);	
 			renderer.processTerrain(terrain2);
 			for(Entity entitty:entities){
