@@ -102,9 +102,11 @@ public class MainGameLoop {
 		Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap);
 		Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap);
 		
-		Camera camera = new Camera( new Vector3f(0, 10, 20));
 		
-		Player player  = new Player(bunny, new Vector3f(1, 0, -1), 0, 0, 0, 1);
+		
+		Player player  = new Player(bunny, new Vector3f(0, 0, 0), 0, 0, 0, 1);
+		player.increaseRotation(0, 180, 0);
+		Camera camera = new Camera(player);
 		
 		
 		/*************************************************************************/
