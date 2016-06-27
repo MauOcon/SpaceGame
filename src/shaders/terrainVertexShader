@@ -30,7 +30,7 @@ void main(void){
 	//Tells to OpenGL where to render this vertex on the screen	
 	gl_Position = projectionMatrix * positionRelativeToCam;
 	// Create an output color
-	pass_textureCoords = textureCoords * 40.0;
+	pass_textureCoords = textureCoords;
 	
 	surfaceNormal = (transformationMatrix * vec4(normal, 0.0)).xyz;
 	toLightVector = lightPosition - worldPosition.xyz;

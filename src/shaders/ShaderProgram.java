@@ -115,6 +115,17 @@ public abstract class ShaderProgram {
 	}
 	
 	/**
+	 * Loads up a float value to the uniform variable 
+	 * located in location
+	 * 
+	 * @param location
+	 * @param value
+	 */
+	protected void loadInt(int location, int value){
+		GL20.glUniform1i(location, value);
+	}
+	
+	/**
 	 * Loads a vector to a uniform variable located in
 	 * location in the shader code
 	 * 
